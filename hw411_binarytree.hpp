@@ -110,8 +110,15 @@ namespace gvsu {
         /* TODO: add as many as private functions as you wish */
         Node * duplicate_from (Node *theOtherNode)
         {
-            FAIL("I have to complete duplicate");
-            return nullptr;
+            if (theOtherNode == nullptr)
+            	return nullptr;
+            else
+            	return new Node (theOtherNode->data,
+            					duplicate_from(theOtherNode->left),
+            					duplicate_from(theOtherNode->right));
+
+        	//FAIL("I have to complete duplicate");
+            //return nullptr;
         }
 
         bool is_element_of (Node *pos, const Z& key) const {
