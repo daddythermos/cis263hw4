@@ -34,9 +34,10 @@ namespace gvsu {
         }
 
         int numberOfNodes() const {
-            FAIL ("I have to complete Question 4.31(a) by writing a private helper recursive function");
+        	FAIL ("I have to complete Question 4.31(a) by writing a private helper recursive function");
+        	return numNodes(root);
             /* in your recursive private function, make sure to avoid duplicate recursive calls */
-            return 0;
+            //return 0;
         }
 
         /* Definition: a leaf node has no children */
@@ -107,13 +108,21 @@ namespace gvsu {
 
     private:
 
+        int numNodes(const Node* pos) const{
+
+        	if(pos == nullptr)
+        		return 0;
+        	else{
+        		return numNodes(pos->left) + numNodes(pos->right) + 1;
+        	}
+        }
+
         Node * findMin(Node* pos) const{
         	if (pos != nullptr){
         		while (pos->left != nullptr)
         			pos = pos->left;
         	}
         	return pos;
-
         }
 
 
