@@ -107,7 +107,16 @@ namespace gvsu {
 
     private:
 
-        /* TODO: add as many as private functions as you wish */
+        Node * findMin(Node* pos) const{
+        	if (pos != nullptr){
+        		while (pos->left != nullptr)
+        			pos = pos->left;
+        	}
+        	return pos;
+
+        }
+
+
         Node * duplicate_from (Node *theOtherNode)
         {
             if (theOtherNode == nullptr)
@@ -122,22 +131,63 @@ namespace gvsu {
         }
 
         bool is_element_of (Node *pos, const Z& key) const {
-            FAIL("I have to complete this recursive function");
-            return false;
+        	if(pos == nullptr)
+        		return false;
+        	else if (key < pos->data)
+        		return is_element_of(pos->left, key);
+        	else if (pos->data < key)
+        		return is_element_of(pos->right, key);
+        	else
+        		return true;
+
+            //FAIL("I have to complete this recursive function");
+            //return false;
         }
         
         bool insert_into (Node*& pos, const Z& key) const {
-            FAIL("I have to complete this recursive function");
-            return false;
+            if (pos == nullptr){
+            	pos = new Node{key, nullptr, nullptr};
+            	return true;
+            }
+            else if (key < pos->data)
+            	return insert_into(pos->left,key);
+            else if (pos->data < key)
+            	return insert_into(pos->right, key);
+            else
+            	return false;
+
+        	//FAIL("I have to complete this recursive function");
+            //return false;
         }
         
         void remove_from (Node*& pos, const Z& key) const {
-            FAIL("I have to complete this recursive function");
+            if (pos == nullptr)
+            	return;
+            if (key < pos->data)
+            	remove_from (pos->left, key);
+            else if (pos->data < key)
+            	remove_from(pos->right, key);
+            else if(pos->left != nullptr && pos->right != nullptr){
+            	pos->data = findMin(pos->right)->data;
+            	remove_from(pos->right, pos->data);
+            }
+            else{
+            	Node * oldNode = pos;
+            	pos = (pos->left != nullptr) ? pos->left : pos->right;
+            	delete oldNode;
+            }
+
+        	//FAIL("I have to complete this recursive function");
         }
         
         void clearAll (Node* & pos) // remove all the nodes from this tree
         {
-            FAIL("I have to complete clearAll");
+            if (pos != nullptr){
+            	clearAll(pos->left);
+            	clearAll(pos->right);
+            	delete pos;
+            }
+            pos = nullptr;
         }
 
         void print_from (Node *pos, ostream& os, const string&& path) const
