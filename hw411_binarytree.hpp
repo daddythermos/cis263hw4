@@ -34,24 +34,20 @@ namespace gvsu {
         }
 
         int numberOfNodes() const {
-        	FAIL ("I have to complete Question 4.31(a) by writing a private helper recursive function");
         	return numNodes(root);
             /* in your recursive private function, make sure to avoid duplicate recursive calls */
-            //return 0;
         }
 
         /* Definition: a leaf node has no children */
         int numberOfLeaves() const {
-            FAIL ("I have to complete Question 4.31(b) by writing a private helper recursive function");
+        	return numLeaves(root);
             /* in your recursive private function, make sure to avoid duplicate recursive calls */
-            return 0;
         }
 
         /* Definition:  a full node has two children */
         int numberOfFullNodes() const {
-            FAIL ("I have to complete Question 4.31(c) by writing a private helper recursive function");
+            return numFull(root);
             /* in your recursive private function, make sure to avoid duplicate recursive calls */
-            return 0;
         }
 
         /* copy assignment */
@@ -109,11 +105,32 @@ namespace gvsu {
     private:
 
         int numNodes(const Node* pos) const{
-
         	if(pos == nullptr)
         		return 0;
         	else{
         		return numNodes(pos->left) + numNodes(pos->right) + 1;
+        	}
+        }
+
+        int numLeaves (const Node* pos) const{
+        	if(pos == nullptr)
+        	   return 0;
+        	else if (pos->left == nullptr && pos->right == nullptr){
+        		return 1;
+        	}
+        	else{
+        		return numLeaves(pos->left) + numLeaves(pos->right);
+        	}
+        }
+
+        int numFull (const Node* pos) const{
+        	if(pos == nullptr)
+        	   return 0;
+        	else if (pos->left != nullptr && pos->right != nullptr){
+        	   return numFull(pos->left) + numFull(pos->right) + 1;
+        	}
+        	else{
+        		return numFull(pos->left) + numFull(pos->right);
         	}
         }
 
