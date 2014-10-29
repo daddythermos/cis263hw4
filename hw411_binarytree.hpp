@@ -5,6 +5,7 @@
 #define CS263_BinaryTree
 #include <stdexcept>
 #include <ostream>
+#include <queue>
 using namespace std;
 namespace gvsu {
     template<typename Z>
@@ -81,8 +82,19 @@ namespace gvsu {
 
         vector<Z> levelOrder () const {
             vector<Z> output;
-            /* The returned string must be separated by commas */
-            FAIL ("I have to complete Question 4.40 by invoking a private function");
+            queue<Node*> q;
+            if (root != nullptr){
+            	q.push (root);
+            }
+            while(!q.empty()){
+            	Node* temp = q.front();
+            	output.push_back(temp->data);
+            	if(temp->left != nullptr)
+            		q.push(temp->left);
+            	if(temp->right != nullptr)
+            		q.push(temp->right);
+            	q.pop();
+            }
             return output;
         }
 
